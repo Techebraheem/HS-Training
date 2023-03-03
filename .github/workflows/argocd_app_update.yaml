@@ -20,4 +20,4 @@ jobs:
         id: argocd_update
         with:
           command: app set hello-app
-          options: -p hello-app.image.tag="ibrahim"
+          options: -p image.tag="ibrahim"
