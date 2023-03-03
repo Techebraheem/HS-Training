@@ -1,0 +1,23 @@
+name: ArgoCD CI/CD
+on: workflow_dispatch
+jobs:
+  Create:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ArgoCD Login
+        id: argocd_login
+        uses: clowdhaus/argo-cd-action/@v1.12.1
+        env:
+          argocd_url: "argocd-eks.hostspaceng.com"
+          argocd_username: "admin"
+          argocd_password: "X23kObe-dBenLO-O"
+        with:
+          command: login ${{ env.argocd_url }}
+          options: --insecure --password ${{ env.argocd_password }} --username ${{ env.argocd_username }}
+
+      - name: ArgoCD update app
+        uses: clowdhaus/argo-cd-action/@v1.12.0
+        id: argocd_update
+        with:
+          command: app set hello-app
+          options: -p helm-app.image.tag="ibrahim"
