@@ -16,5 +16,5 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          tags: ghcr.io/HS-Training/flask:${{ github.sha }}
+          tags: ghcr.io/hs-training/flask:${{ github.sha }}
           file: ./Dockerfile
