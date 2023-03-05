@@ -1,9 +1,9 @@
 name: Build and push with GitHub Actions
 on: 
   push:
-    branches: [ "master" ]
+    branches: [ "Dev" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "Dev" ]
     
 jobs:
   build-and-push-to-ghcr:
@@ -13,11 +13,8 @@ jobs:
         uses: actions/checkout@v3
       
       - name: build-image-and-containerize
-        uses: mr-smithers-excellent/docker-build-push@v6
+        uses: docker/build-push-action@v3
         with:
-          image: python-build
-          tags: ibrahim
-          registry: ghcr.io
-          dockerfile: Dockerfile
-          username: ${{ secrets.GHCR_USERNAME }}
-          password: ${{ secrets.GHCR_TOKEN }}
+          context: .
+          tags: ghcr.io/HS-Training/flask:${{ github.sha }}
+          file: ./Dockerfile
